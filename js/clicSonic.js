@@ -3,9 +3,10 @@
     width: 800,
     height: 600,
     scene: [
-        Init/*,
-        World,
-        Fight*/
+        Init,
+        //World,
+        Fight
     ]
 };
 var game = new Phaser.Game(config);
+
