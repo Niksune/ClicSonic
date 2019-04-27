@@ -21,7 +21,7 @@
         this.maxScore = 500;
 
         Fight = this.scene.get("Fight");
-        this.add.image(0, 0, 'fond').setOrigin(0, 0);
+        this.add.image(0, 0, 'fondFight').setOrigin(0, 0);
 
         this.texte = this.add.text(400, 100, 'Clic Sonic !', { fontSize: '32px', fill: '#fff' }).setOrigin(0.5);
 
