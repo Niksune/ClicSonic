@@ -9,8 +9,6 @@
         },
 
     preload: function () {
-        this.load.image('sonic', 'images/sonicIcon.png');
-        this.load.image('fond', 'images/fond.jpg');
     },
 
     create: function () {
