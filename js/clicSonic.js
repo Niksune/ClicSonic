@@ -4,7 +4,7 @@
     height: 600,
     scene: [
         Init,
-        //World,
+        World,
         Fight
     ]
 };

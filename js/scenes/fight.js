@@ -4,7 +4,7 @@
 
     initialize:
 
-        function BootScene() {
+        function Fight() {
             Phaser.Scene.call(this, { key: 'Fight' });
         },
 

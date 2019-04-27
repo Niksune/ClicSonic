@@ -6,7 +6,7 @@ var Init = new Phaser.Class({
 
     initialize:
 
-        function BootScene() {
+        function Init() {
             Phaser.Scene.call(this, { key: 'BootScene' });
         },
 
@@ -16,6 +16,6 @@ var Init = new Phaser.Class({
     },
 
     create: function () {
-        this.scene.start('Fight');
+        this.scene.start('World');
     }
 });
