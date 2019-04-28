@@ -1,13 +1,13 @@
-﻿var levels = [
-    new Level("Tails", 50),
-    new Level("Knuckles", 100)
-];
+﻿var levels = new Map();
+
+levels.set("Tails",new Level("Tails", 50));
+levels.set("Knuckles",new Level("Knuckles", 100));
 
 function getLevel() {
     var levelToReturn = "Level Inconnu";
-    levels.forEach(function (element) {
-        if (element.name == level) {
-            levelToReturn = element;
+    levels.forEach(function (valeur, cle) {
+        if (cle == level) {
+            levelToReturn = valeur;
         }
     });
     return levelToReturn;
