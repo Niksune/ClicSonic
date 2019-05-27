@@ -63,7 +63,22 @@
         {
             this.spriteKnuckles.setTexture("thumbUpKnuckles");
         }
-        
 
+        //Gestion apparition niveau final
+        if(levels.get("Knuckles").complete === true)
+        {
+            this.timedEvent = this.time.addEvent({ delay: 2500, callback: this.afterAnim, callbackScope: this, loop: false });
+            //Mettre les 2 nuages et leur mettre une velocity
+            //Mettre le sprite de metalsonic derrière
+            //Lancer le son de ça bouge
+        }
+        
+    },
+
+    afterAnim: function () {
+        //Arréter le son de ça bouge
+        //Arréter la velocity des nuages
+        //Son de "glong"
+        //Rendre niveau metal sonic clickable
     }
 });
