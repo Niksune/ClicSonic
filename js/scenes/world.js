@@ -24,6 +24,15 @@
         this.spriteTails = this.add.sprite(600, 400, 'tails').setOrigin(0.5).setInteractive();
         this.spriteKnuckles = this.add.sprite(200, 400, 'knuckles').setOrigin(0.5).setInteractive();
 
+        //Ajout du texte si pas encore au niveau final
+        if(levels.get("Knuckles").complete === false)
+        {
+            this.add.sprite(400, 100, 'noir').setOrigin(0.5);
+
+            this.texte = this.add.text(400, 100, 'Rallie tes amis !', { fontSize: '27px', fill: '#fff' }).setOrigin(0.5);    
+        }
+
+        //Gestion sprite et action Tails
         if (levels.get("Tails").complete === false) {
             this.spriteTails.on('pointerdown', function (pointer) {
 
@@ -33,10 +42,10 @@
             });
         }
         else {
-            this.spriteTails.destroy();
-            this.spriteTails = this.add.sprite(600, 400, 'thumbUpTails').setOrigin(0.5).setInteractive();
+            this.spriteTails.setTexture("thumbUpTails");
         }
 
+        //Gestion sprite et action knuckles
         if (levels.get("Tails").complete === true && levels.get("Knuckles").complete === false) {
             this.spriteKnuckles.clearTint();
             this.spriteKnuckles.on('pointerdown', function (pointer) {
@@ -52,12 +61,9 @@
         }
         else
         {
-            this.spriteKnuckles.destroy();
-            this.spriteKnuckles = this.add.sprite(200, 400, 'thumbUpKnuckles').setOrigin(0.5).setInteractive();
+            this.spriteKnuckles.setTexture("thumbUpKnuckles");
         }
         
-
-
 
     }
 });
