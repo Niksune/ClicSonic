@@ -15,6 +15,8 @@
 
         World = this.scene.get("World");
 
+        manageMusic('worldMenu');
+
         this.spriteTails;
         this.spriteKnuckles;
 
@@ -22,21 +24,40 @@
         this.spriteTails = this.add.sprite(600, 400, 'tails').setOrigin(0.5).setInteractive();
         this.spriteKnuckles = this.add.sprite(200, 400, 'knuckles').setOrigin(0.5).setInteractive();
 
-        this.spriteTails.on('pointerdown', function (pointer) {
+        if (levels.get("Tails").complete === false) {
+            this.spriteTails.on('pointerdown', function (pointer) {
 
-            level = "Tails";
+                level = "Tails";
 
-            World.scene.start('Fight');
-        });
+                World.scene.start('Fight');
+            });
+        }
+        else {
+            this.spriteTails.destroy();
+            this.spriteTails = this.add.sprite(600, 400, 'thumbUpTails').setOrigin(0.5).setInteractive();
+        }
 
-        this.spriteKnuckles.on('pointerdown', function (pointer) {
+        if (levels.get("Tails").complete === true && levels.get("Knuckles").complete === false) {
+            this.spriteKnuckles.clearTint();
+            this.spriteKnuckles.on('pointerdown', function (pointer) {
 
-            level = "Knuckles";
-
-            World.scene.start('Fight');
-        });
-
-
+                level = "Knuckles";
+    
+                World.scene.start('Fight');
+            });
+        }
+        else if(levels.get("Tails").complete === false)
+        {
+            this.spriteKnuckles.setTint(0x696969);
+        }
+        else
+        {
+            this.spriteKnuckles.destroy();
+            this.spriteKnuckles = this.add.sprite(200, 400, 'thumbUpKnuckles').setOrigin(0.5).setInteractive();
+        }
         
+
+
+
     }
 });

@@ -1,19 +1,4 @@
-﻿var levels = new Map();
-
-levels.set("Tails",new Level("Tails", 50));
-levels.set("Knuckles",new Level("Knuckles", 100));
-
-function getLevel() {
-    var levelToReturn = "Level Inconnu";
-    levels.forEach(function (valeur, cle) {
-        if (cle == level) {
-            levelToReturn = valeur;
-        }
-    });
-    return levelToReturn;
-}
-
-var Fight = new Phaser.Class({
+﻿var Fight = new Phaser.Class({
 
     Extends: Phaser.Scene,
 
@@ -28,17 +13,21 @@ var Fight = new Phaser.Class({
 
     create: function () {
 
-        this.levelInstance = getLevel();
         this.score = 0;
         this.texte;
         this.timedEvent;
         this.spriteSonic;
         this.bar;
-        this.maxScore = this.levelInstance.maxScore;
+        this.maxScore = levels.get(level).maxScore;
+        this.dashSounds = [];
 
         Fight = this.scene.get("Fight");
 
+        manageMusic('puzzles');
+
         this.add.image(0, 0, 'fond' + level).setOrigin(0, 0);
+
+        this.add.sprite(400, 100, 'noir').setOrigin(0.5);
 
         this.texte = this.add.text(400, 100, 'Clic Sonic !', { fontSize: '32px', fill: '#fff' }).setOrigin(0.5);
 
@@ -49,6 +38,20 @@ var Fight = new Phaser.Class({
         this.spriteSonic = this.add.sprite(400, 400, 'sonic').setOrigin(0.5).setInteractive();
 
         this.spriteSonic.on('pointerdown', function (pointer) {
+
+            Fight.spriteSonic.setTexture("sonicSpin");
+
+            if(Fight.dashSounds.length == 0)
+            {
+                music.stop();
+                Fight.dashSounds[0] = Fight.sound.add('spinPrepare');
+                Fight.dashSounds[0].play();
+            }
+            else if(Fight.dashSounds.length < 3)
+            {
+                Fight.dashSounds[Fight.dashSounds.length] = Fight.sound.add('spinPrepare');
+                Fight.dashSounds[Fight.dashSounds.length-1].play();
+            }
 
             this.setTint(0xff0000);
             Fight.score += 10;
@@ -79,7 +82,8 @@ var Fight = new Phaser.Class({
     },
 
     victory: function () {
-        console.log("victoire niveau "+level);
+
+        levels.get(level).complete = true;
 
         Fight.scene.start('World');
     },
