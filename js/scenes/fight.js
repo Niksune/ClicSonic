@@ -15,11 +15,12 @@
 
         this.score = 0;
         this.texte;
-        this.timedEvent;
+        this.perteAccelerationEvent;
         this.spriteSonic;
         this.bar;
         this.maxScore = levels.get(level).maxScore;
         this.dashSounds = [];
+        this.end = false;
 
         Fight = this.scene.get("Fight");
 
@@ -31,9 +32,9 @@
 
         this.texte = this.add.text(400, 100, 'Clic Sonic !', { fontSize: '32px', fill: '#fff' }).setOrigin(0.5);
 
-        this.bar = new HealthBar(this, 300, 200, 200, 50, this.maxScore);
+        this.bar = new HealthBar(this, 200, 200, 400, 50, this.maxScore);
 
-        this.timedEvent = this.time.addEvent({ delay: 1500, callback: this.onEvent, callbackScope: this, loop: true });
+        this.perteAccelerationEvent = this.time.addEvent({ delay: 1500, callback: this.perteAcceleration, callbackScope: this, loop: true });
 
         this.spriteSonic = this.add.sprite(400, 400, 'sonic').setOrigin(0.5).setInteractive();
 
@@ -41,28 +42,23 @@
 
             Fight.spriteSonic.setTexture("sonicSpin");
 
-            if(Fight.dashSounds.length == 0)
-            {
+            //Premier clic
+            if (Fight.dashSounds.length == 0) {
+                Fight.finLevelEvent = Fight.time.addEvent({ delay: 2500, callback: Fight.finLevel, callbackScope: Fight, loop: false });
                 music.stop();
                 Fight.dashSounds[0] = Fight.sound.add('spinPrepare');
                 Fight.dashSounds[0].play();
             }
-            else if(Fight.dashSounds.length < 3)
-            {
+            else if (Fight.dashSounds.length < 3) {
                 Fight.dashSounds[Fight.dashSounds.length] = Fight.sound.add('spinPrepare');
-                Fight.dashSounds[Fight.dashSounds.length-1].play();
+                Fight.dashSounds[Fight.dashSounds.length - 1].play();
             }
 
             this.setTint(0xff0000);
             Fight.score += 10;
             Fight.majScore();
             if (Fight.score >= Fight.maxScore) {
-                Fight.timedEvent.remove();
-                Fight.timedEvent = Fight.time.addEvent({ delay: 1000, callback: Fight.victory, callbackScope: this });
-
-                Fight.texte.setText('VICTOIRE');
-
-                Fight.spriteSonic.off('pointerdown');
+                Fight.finLevel();
             }
         });
 
@@ -81,15 +77,8 @@
 
     },
 
-    victory: function () {
-
-        levels.get(level).complete = true;
-
-        Fight.scene.start('World');
-    },
-
-    onEvent: function () {
-        this.score -= 50;
+    perteAcceleration: function () {
+        this.score -= 30;
         if (this.score <= 0)
             this.score = 0;
         this.majScore();
@@ -98,5 +87,30 @@
     majScore: function () {
         console.log(this.score);
         this.bar.newAmount(this.score);
+    },
+
+    finLevel: function () {
+        this.finalDash = this.sound.add('spinDash');
+        this.finalDash.play();
+
+        if (this.score >= (this.maxScore / 2))
+            this.end = "victoire";
+        else
+            this.end = "defaite";
+
+        this.perteAccelerationEvent.remove();
+        this.finLevelEvent = this.time.addEvent({ delay: 1000, callback: this.changeScene, callbackScope: this });
+        if (this.end == "victoire")
+            this.texte.setText('VICTOIRE');
+        else
+            this.texte.setText('ESSAYE ENCORE !');
+        this.spriteSonic.off('pointerdown');
+    },
+
+    changeScene: function () {
+        if (this.end == "victoire")
+            levels.get(level).complete = true;
+
+        Fight.scene.start('World');
     }
 });

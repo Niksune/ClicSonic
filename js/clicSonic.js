@@ -4,8 +4,8 @@ var level;
 
 var levels = new Map();
 
-levels.set("Tails",new Level("Tails", 50));
-levels.set("Knuckles",new Level("Knuckles", 100));
+levels.set("Tails",new Level("Tails", 150));
+levels.set("Knuckles",new Level("Knuckles", 330));
 
 var music;
 
