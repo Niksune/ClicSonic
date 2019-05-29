@@ -23,7 +23,8 @@ var config = {
     scene: [
         Init,
         World,
-        Fight
+        Fight,
+        LastLevel
     ]
 };
 var game = new Phaser.Game(config);

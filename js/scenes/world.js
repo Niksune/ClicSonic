@@ -79,6 +79,6 @@
         //Arréter le son de ça bouge
         //Arréter la velocity des nuages
         //Son de "glong"
-        //Rendre niveau metal sonic clickable
+        //Rendre niveau metal sonic clickable qui lance la nouvelle scene LastLevel
     }
 });
