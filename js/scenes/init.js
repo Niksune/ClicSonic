@@ -9,6 +9,8 @@ var Init = new Phaser.Class({
         },
 
     preload: function () {
+        this.load.image('boutonTestAnim', 'ressources/images/boutonTestAnimation.png');
+
         this.load.image('noir', 'ressources/images/noir.png');
 
         this.load.image('sonic', 'ressources/images/sonicIcon.png');

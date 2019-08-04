@@ -17,9 +17,6 @@
 
         manageMusic('worldMenu');
 
-        this.spriteTails;
-        this.spriteKnuckles;
-
         this.add.image(0, 0, 'fondWorld').setOrigin(0, 0);
         this.spriteTails = this.add.sprite(600, 400, 'tails').setOrigin(0.5).setInteractive();
         this.spriteKnuckles = this.add.sprite(200, 400, 'knuckles').setOrigin(0.5).setInteractive();
@@ -68,14 +65,30 @@
         if(levels.get("Knuckles").complete === true)
         {
             this.timedEvent = this.time.addEvent({ delay: 2500, callback: this.afterAnim, callbackScope: this, loop: false });
-            //Mettre les 2 nuages et leur mettre une velocity
-            //Mettre le sprite de metalsonic derrière
-            //Lancer le son de ça bouge
+            this.finalAnim();
         }
+
+        /*TEST ANIM*/
+        this.bouton = this.add.sprite(400, 200, 'boutonTestAnim').setOrigin(0.5).setInteractive();
+        this.bouton.on('pointerdown', function (pointer) {
+            World.finalAnim();
+        });
+        /*FIN*/
         
     },
 
+    finalAnim: function () {
+
+    console.log("Animation Finale");
+
+        //TODO :
+        //Mettre les 2 nuages et leur mettre une velocity
+        //Mettre le sprite de metalsonic derrière
+        //Lancer le son de ça bouge
+    },
+
     afterAnim: function () {
+        //TODO :
         //Arréter le son de ça bouge
         //Arréter la velocity des nuages
         //Son de "glong"
