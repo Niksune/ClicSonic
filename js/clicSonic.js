@@ -25,7 +25,7 @@ var config = {
     scene: [
         Init,
         World,
-        Fight/*,
+        Action/*,
         LastLevel*/
     ]
 };

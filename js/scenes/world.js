@@ -88,7 +88,7 @@
 
                 level = "Tails";
 
-                World.scene.start('Fight');
+                World.scene.start('Action');
             });
         }
         else {
@@ -102,7 +102,7 @@
 
                 level = "Knuckles";
 
-                World.scene.start('Fight');
+                World.scene.start('Action');
             });
         }
         else if (levels.get("Tails").complete === false) {

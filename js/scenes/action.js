@@ -1,11 +1,11 @@
-﻿var Fight = new Phaser.Class({
+﻿var Action = new Phaser.Class({
 
     Extends: Phaser.Scene,
 
     initialize:
 
-        function Fight() {
-            Phaser.Scene.call(this, { key: 'Fight' });
+        function Action() {
+            Phaser.Scene.call(this, { key: 'Action' });
         },
 
     preload: function () {
@@ -13,7 +13,7 @@
 
     create: function () {
 
-        Fight = this.scene.get("Fight");
+        Action = this.scene.get("Action");
 
         this.score = 0;
         this.texte;
@@ -36,28 +36,28 @@
         this.compteurDialogue = 1;
 
         if (level === "Tails") {
-            this.dialogue = new EcranDialogue("Salut Sonic !\nQuel Bon vent t'amène ?", this, "tails");
+            this.dialogue = new EcranDialogue("Salut Sonic !\nQuel bon vent t'amène ?", this, "tails");
             this.dialogue.creerEtAfficher();
             this.dialogue.getZoneReaction().on('pointerdown', function (pointer) {
-                switch (Fight.compteurDialogue) {
+                switch (Action.compteurDialogue) {
                     case 1:
-                        Fight.dialogue.setDialogue("Je pense qu'il\nva y avoir de\nl'action aujourd'hui.", "sonic");
+                        Action.dialogue.setDialogue("Je pense qu'il\nva y avoir de\nl'action aujourd'hui.", "sonic");
                         break;
                     case 2:
-                        Fight.dialogue.setDialogue("J'aimerais que\nl'on soit prets.", "sonic");
+                        Action.dialogue.setDialogue("J'aimerais que\nl'on soit prets.", "sonic");
                         break;                    
                     case 3:
-                        Fight.dialogue.setDialogue("Très bien !\nJ'aurai juste besoin\nde ton aide pour\nfinir de réparer\nce partionneur\à émeraudes", "tails");
+                        Action.dialogue.setDialogue("Très bien !\nJ'aurai juste besoin\nde ton aide pour\nfinir de réparer\nce partionneur\à émeraudes", "tails");
                         break;                    
                     case 4:
-                        Fight.dialogue.setDialogue("C'est comme si\nc'était fait !", "sonic");
+                        Action.dialogue.setDialogue("C'est comme si\nc'était fait !", "sonic");
                         break;
                     case 5:
-                        Fight.dialogue.fermer();
-                        Fight.launchingFight();
+                        Action.dialogue.fermer();
+                        Action.launchingAction();
                         break;
                 }
-                Fight.compteurDialogue++;
+                Action.compteurDialogue++;
             });
         }
         else if (level === "Knuckles") {
@@ -71,7 +71,7 @@
 
     },
 
-    launchingFight: function () {
+    launchingAction: function () {
 
         this.add.sprite(400, 100, 'noir').setOrigin(0.5);
 
@@ -85,25 +85,25 @@
 
         this.spriteSonic.on('pointerdown', function (pointer) {
 
-            Fight.spriteSonic.setTexture("sonicSpin");
+            Action.spriteSonic.setTexture("sonicSpin");
 
             //Premier clic
-            if (Fight.dashSounds.length == 0) {
-                Fight.finLevelEvent = Fight.time.addEvent({ delay: 2500, callback: Fight.finLevel, callbackScope: Fight, loop: false });
+            if (Action.dashSounds.length == 0) {
+                Action.finLevelEvent = Action.time.addEvent({ delay: 2500, callback: Action.finLevel, callbackScope: Action, loop: false });
                 music.stop();
-                Fight.dashSounds[0] = Fight.sound.add('spinPrepare');
-                Fight.dashSounds[0].play();
+                Action.dashSounds[0] = Action.sound.add('spinPrepare');
+                Action.dashSounds[0].play();
             }
-            else if (Fight.dashSounds.length < 3) {
-                Fight.dashSounds[Fight.dashSounds.length] = Fight.sound.add('spinPrepare');
-                Fight.dashSounds[Fight.dashSounds.length - 1].play();
+            else if (Action.dashSounds.length < 3) {
+                Action.dashSounds[Action.dashSounds.length] = Action.sound.add('spinPrepare');
+                Action.dashSounds[Action.dashSounds.length - 1].play();
             }
 
             this.setTint(0xff0000);
-            Fight.score += 10;
-            Fight.majScore();
-            if (Fight.score >= Fight.maxScore) {
-                Fight.finLevel();
+            Action.score += 10;
+            Action.majScore();
+            if (Action.score >= Action.maxScore) {
+                Action.finLevel();
             }
         });
 
@@ -156,6 +156,6 @@
         if (this.end == "victoire")
             levels.get(level).complete = true;
 
-        Fight.scene.start('World');
+        Action.scene.start('World');
     }
 });
