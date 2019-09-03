@@ -13,8 +13,6 @@
 
     create: function () {
 
-        console.log("pute-1")
-
         Fight = this.scene.get("Fight");
 
         this.score = 0;
@@ -30,14 +28,10 @@
 
         this.add.image(0, 0, 'fond' + level).setOrigin(0, 0);
 
-        console.log("pute0")
-
         this.scenario();
     },
 
     scenario: function () {
-
-        console.log("pute")
 
         this.compteurDialogue = 1;
 
@@ -78,8 +72,6 @@
     },
 
     launchingFight: function () {
-
-        console.log("pute2")
 
         this.add.sprite(400, 100, 'noir').setOrigin(0.5);
 
@@ -138,7 +130,7 @@
     },
 
     majScore: function () {
-        console.log("pute"+this.score);
+        console.log(this.score);
         this.bar.newAmount(this.score);
     },
 
