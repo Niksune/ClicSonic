@@ -7,7 +7,7 @@ class HealthBar {
 
         this.x = x;
         this.y = y;
-        this.value = 0;
+        this.amount = 0;
         this.longueurMax = longueurMax;
         this.hauteurMax = hauteurMax;
 
@@ -23,7 +23,12 @@ class HealthBar {
     }
 
     newAmount(amount) {
-        this.value = amount;
+        if(amount < 0)
+            this.amount = 0;
+        else if(amount > this.valeurMax)
+            this.amount = this.valeurMax;
+        else
+            this.amount = amount;
 
         this.draw();
     }
@@ -39,14 +44,14 @@ class HealthBar {
         this.bar.fillStyle(0xffffff);
         this.bar.fillRect(this.x + this.largeurBordure, this.y + this.largeurBordure, this.longueur, this.hauteur);
 
-        if (this.value / this.valeurMax < 0.3) {
+        if (this.amount / this.valeurMax < 0.3) {
             this.bar.fillStyle(0xff0000);
         }
         else {
             this.bar.fillStyle(0x00ff00);
         }
 
-        var longueurEffective = Math.floor(this.longueur * this.value / this.valeurMax);
+        var longueurEffective = Math.floor(this.longueur * this.amount / this.valeurMax);
 
         this.bar.fillRect(this.x + this.largeurBordure, this.y + this.largeurBordure, longueurEffective, this.hauteur);
     }
@@ -54,17 +59,3 @@ class HealthBar {
 }
 
 //de base longueur = 76 et hauteur = 12
-/*
-decrease(amount)
-{
-    this.value -= amount;
-
-    if (this.value < 0) {
-        this.value = 0;
-    }
-
-    this.draw();
-
-    return (this.value === 0);
-}
-*/
