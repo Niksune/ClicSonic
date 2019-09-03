@@ -1,5 +1,7 @@
 ﻿//Global Variables
 //The Scenes + this file
+var fromInit = true;
+
 var level;
 
 var levels = new Map();
@@ -12,7 +14,7 @@ var music;
 function manageMusic(musicName)
 {
     music.stop();
-    music = World.sound.add(musicName);
+    music = Init.sound.add(musicName);
     music.play();
 }
 

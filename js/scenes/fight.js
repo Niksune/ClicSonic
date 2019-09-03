@@ -13,6 +13,10 @@
 
     create: function () {
 
+        console.log("pute-1")
+
+        Fight = this.scene.get("Fight");
+
         this.score = 0;
         this.texte;
         this.perteAccelerationEvent;
@@ -22,11 +26,60 @@
         this.dashSounds = [];
         this.end = false;
 
-        Fight = this.scene.get("Fight");
-
         manageMusic('puzzles');
 
         this.add.image(0, 0, 'fond' + level).setOrigin(0, 0);
+
+        console.log("pute0")
+
+        this.scenario();
+    },
+
+    scenario: function () {
+
+        console.log("pute")
+
+        this.compteurDialogue = 1;
+
+        if (level === "Tails") {
+            this.dialogue = new EcranDialogue("Salut Sonic !\nQuel Bon vent t'amène ?", this, "tails");
+            this.dialogue.creerEtAfficher();
+            this.dialogue.getZoneReaction().on('pointerdown', function (pointer) {
+                switch (Fight.compteurDialogue) {
+                    case 1:
+                        Fight.dialogue.setDialogue("Je pense qu'il\nva y avoir de\nl'action aujourd'hui.", "sonic");
+                        break;
+                    case 2:
+                        Fight.dialogue.setDialogue("J'aimerais que\nl'on soit prets.", "sonic");
+                        break;                    
+                    case 3:
+                        Fight.dialogue.setDialogue("Très bien !\nJ'aurai juste besoin\nde ton aide pour\nfinir de réparer\nce partionneur\à émeraudes", "tails");
+                        break;                    
+                    case 4:
+                        Fight.dialogue.setDialogue("C'est comme si\nc'était fait !", "sonic");
+                        break;
+                    case 5:
+                        Fight.dialogue.fermer();
+                        Fight.launchingFight();
+                        break;
+                }
+                Fight.compteurDialogue++;
+            });
+        }
+        else if (level === "Knuckles") {
+
+        }
+
+        
+    
+            
+
+
+    },
+
+    launchingFight: function () {
+
+        console.log("pute2")
 
         this.add.sprite(400, 100, 'noir').setOrigin(0.5);
 
@@ -85,7 +138,7 @@
     },
 
     majScore: function () {
-        console.log(this.score);
+        console.log("pute"+this.score);
         this.bar.newAmount(this.score);
     },
 

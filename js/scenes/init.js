@@ -5,10 +5,12 @@ var Init = new Phaser.Class({
     initialize:
 
         function Init() {
-            Phaser.Scene.call(this, { key: 'BootScene' });
+            Phaser.Scene.call(this, { key: 'Init' });
         },
 
     preload: function () {
+        this.load.image('titre', 'ressources/images/titre.jpg');
+
         this.load.image('boutonTestAnim', 'ressources/images/boutonTestAnimation.png');
 
         this.load.image('noir', 'ressources/images/noir.png');
@@ -33,7 +35,12 @@ var Init = new Phaser.Class({
     },
 
     create: function () {
+        Init = this.scene.get("Init");
         music = this.sound.add('worldMenu');
-        this.scene.start('World');
+        manageMusic('worldMenu');
+        this.initBackground = this.add.sprite(0, 0, 'titre').setOrigin(0, 0).setInteractive();
+        this.initBackground.on('pointerdown', function (pointer) {
+            Init.scene.start('World');
+        });
     }
 });
