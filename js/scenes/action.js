@@ -36,21 +36,21 @@
         this.compteurDialogue = 1;
 
         if (level === "Tails") {
-            this.dialogue = new EcranDialogue("Salut Sonic !\nQuel bon vent t'amène ?", this, "tails");
+            this.dialogue = new EcranDialogue("Salut Sonic ! Quel bon vent t'amène ?", this, "tails");
             this.dialogue.creerEtAfficher();
             this.dialogue.getZoneReaction().on('pointerdown', function (pointer) {
                 switch (Action.compteurDialogue) {
                     case 1:
-                        Action.dialogue.setDialogue("Je pense qu'il\nva y avoir de\nl'action aujourd'hui.", "sonic");
+                        Action.dialogue.setDialogue("Je pense qu'il va y avoir de l'action aujourd'hui.", "sonic");
                         break;
                     case 2:
-                        Action.dialogue.setDialogue("J'aimerais que\nl'on soit prets.", "sonic");
+                        Action.dialogue.setDialogue("J'aimerais que l'on soit prets.", "sonic");
                         break;                    
                     case 3:
-                        Action.dialogue.setDialogue("Très bien !\nJ'aurai juste besoin\nde ton aide pour\nfinir de réparer\nce partionneur\à émeraudes", "tails");
+                        Action.dialogue.setDialogue("Très bien ! J'aurai juste besoin de ton aide pour finir de réparer ce partionneur à émeraudes.", "tails");
                         break;                    
                     case 4:
-                        Action.dialogue.setDialogue("C'est comme si\nc'était fait !", "sonic");
+                        Action.dialogue.setDialogue("C'est comme si c'était fait !", "sonic");
                         break;
                     case 5:
                         Action.dialogue.fermer();
@@ -61,22 +61,35 @@
             });
         }
         else if (level === "Knuckles") {
-
+            this.dialogue = new EcranDialogue("Salut Sonic.", this, "knuckles");
+            this.dialogue.creerEtAfficher();
+            this.dialogue.getZoneReaction().on('pointerdown', function (pointer) {
+                switch (Action.compteurDialogue) {
+                    case 1:
+                        Action.dialogue.setDialogue("Salut mec ! Je pense qu'il vaut mieux être sur le qui-vive aujourd'hui.", "sonic");
+                        break;
+                    case 2:
+                        Action.dialogue.setDialogue("Je ne sais pas ce que ça veut dire mais j'aurai besoin de toi pour réparer le socle de la Master Emerald.", "knuckles");
+                        break;                    
+                    case 3:
+                        Action.dialogue.setDialogue("C'est parti !", "sonic");
+                        break;                    
+                    case 4:
+                        Action.dialogue.fermer();
+                        Action.launchingAction();
+                        break;
+                }
+                Action.compteurDialogue++;
+            });
         }
-
-        
-    
-            
-
 
     },
 
     launchingAction: function () {
 
-        this.add.sprite(400, 100, 'noir').setOrigin(0.5);
-
-        this.texte = this.add.text(400, 100, 'Clic Sonic !', { fontSize: '32px', fill: '#fff' }).setOrigin(0.5);
-
+        this.boiteTexte = new BoiteTexte("Clic Sonic !", this);
+        this.boiteTexte.creerEtAfficher();
+        
         this.bar = new HealthBar(this, 200, 200, 400, 50, this.maxScore);
 
         this.perteAccelerationEvent = this.time.addEvent({ delay: 1500, callback: this.perteAcceleration, callbackScope: this, loop: true });
@@ -146,9 +159,9 @@
         this.perteAccelerationEvent.remove();
         this.finLevelEvent = this.time.addEvent({ delay: 1000, callback: this.changeScene, callbackScope: this });
         if (this.end == "victoire")
-            this.texte.setText('VICTOIRE');
+            this.boiteTexte.setTexte('VICTOIRE');
         else
-            this.texte.setText('ESSAYE ENCORE !');
+            this.boiteTexte.setTexte('ESSAYE ENCORE !');
         this.spriteSonic.off('pointerdown');
     },
 

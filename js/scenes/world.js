@@ -36,13 +36,13 @@
             this.dialogue.getZoneReaction().on('pointerdown', function (pointer) {
                 switch (World.compteurDialogue) {
                     case 1:
-                        World.dialogue.setDialogue("Ca fait longtemps que\nDr Robotnik et compagnie\nn'agissent pas.", "sonic");
+                        World.dialogue.setDialogue("Ca fait longtemps que Dr Robotnik et compagnie n'agissent pas.", "sonic");
                         break;
                     case 2:
-                        World.dialogue.setDialogue("C'est plutôt une\nbonne nouvelle mais\nj'ai un mauvais\nprésentiment.", "sonic");
+                        World.dialogue.setDialogue("C'est plutôt une bonne nouvelle mais j'ai un mauvais présentiment.", "sonic");
                         break;
                     case 3:
-                        World.dialogue.setDialogue("Je vais aller\nchercher les autres\npour se tenir prets.\nAu cas où...", "sonic");
+                        World.dialogue.setDialogue("Je vais aller chercher les autres pour se tenir prets. Au cas où...", "sonic");
                         break;
                     case 4:
                         World.dialogue.fermer();
@@ -53,7 +53,7 @@
             });
         }
         else if (levels.get("Tails").complete === true && levels.get("Knuckles").complete === false) {
-            this.dialogue = new EcranDialogue("Super !\nAllons chercher\nKnuckles maintenant !", this, "sonic");
+            this.dialogue = new EcranDialogue("Super ! Allons chercher Knuckles maintenant !", this, "sonic");
             this.dialogue.creerEtAfficher();
             this.dialogue.getZoneReaction().on('pointerdown', function (pointer) {
                 World.dialogue.fermer();
@@ -61,13 +61,33 @@
             });
         }
         else if (levels.get("Knuckles").complete === true) {
-
+            this.dialogue = new EcranDialogue("Bon, on est là, il se passe quoi du coup ?", this, "knuckles");
+            this.dialogue.creerEtAfficher();
+            this.dialogue.getZoneReaction().on('pointerdown', function (pointer) {
+                switch (World.compteurDialogue) {
+                    case 1:
+                        World.dialogue.setDialogue("Peut être rien, je voulais être sur que votre matériel soit pret et que vous soyez disponibles.", "sonic");
+                        break;
+                    case 2:
+                        World.dialogue.setDialogue("On est jamais trop prudents.", "tails");
+                        break;
+                    case 3:
+                        World.dialogue.setDialogue("Bon, et ben je vais aller faire la sieste alors.", "knuckles");
+                        break;
+                    case 4:
+                        World.dialogue.setDialogue("Attends Knuckles, j'ai l'impression qu'il se passe quelque chose...", "sonic");
+                        break;
+                    case 5:
+                        World.dialogue.setDialogue("HO MON DIEU !", "tails");
+                        break;
+                    case 6:
+                        World.dialogue.fermer();
+                        World.launchingWorld();
+                        break;
+                }
+                World.compteurDialogue++;
+            });
         }
-
-
-
-
-
 
     },
 
@@ -118,18 +138,12 @@
             this.finalAnim();
         }
 
-        /*TEST ANIM*/
-        this.bouton = this.add.sprite(400, 200, 'boutonTestAnim').setOrigin(0.5).setInteractive();
-        this.bouton.on('pointerdown', function (pointer) {
-            World.finalAnim();
-        });
-        /*FIN*/
     },
 
     finalAnim: function () {
 
-        this.fondTexte.destroy();
-        this.texte.destroy();
+        manageMusic('endGame');
+
         this.fondSombre(1);
 
         console.log("Animation Finale");

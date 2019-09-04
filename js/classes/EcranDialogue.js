@@ -4,7 +4,7 @@ var EcranDialogue = /** @class */ (function () {
         if ($nomFond === void 0) { $nomFond = "noir"; }
         this.largeur = game.config.width * 0.9;
         this.hauteur = game.config.height * 0.5;
-        this.texte = $texte;
+        this.texte = ajoutRetoursChariot($texte);
         this.sceneToAttach = $sceneToAttach;
         this.nomIconeParleur = $nomIconeParleur;
         this.nomFond = $nomFond;
@@ -16,7 +16,7 @@ var EcranDialogue = /** @class */ (function () {
         this.conteneurTexte = this.sceneToAttach.add.text(100 + (this.largeur / 2), 150, this.texte, { fontSize: '27px', fill: '#fff' }).setOrigin(0.5);
     };
     EcranDialogue.prototype.setDialogue = function (texte, icone) {
-        this.texte = texte;
+        this.texte = ajoutRetoursChariot(texte);
         this.nomIconeParleur = icone;
         this.conteneurTexte.setText(this.texte);
         this.conteneurIcone.setTexture(this.nomIconeParleur);

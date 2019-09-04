@@ -32,6 +32,7 @@ var Init = new Phaser.Class({
         this.load.audio('spinDash', 'ressources/sons/spinDash.ogg');
         this.load.audio('worldMenu', 'ressources/sons/worldMenu.ogg');
         this.load.audio('puzzles', 'ressources/sons/puzzles.ogg');
+        this.load.audio('endGame', 'ressources/sons/endGame.mp3');
     },
 
     create: function () {
